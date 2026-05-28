@@ -11,7 +11,7 @@ from datetime import datetime
 
 # Configuration
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "tinyllama"
+MODEL_NAME = "llama2-uncensored"
 
 # Page config
 st.set_page_config(
@@ -120,10 +120,8 @@ with col2:
                     "system": system_prompt,
                     "stream": False,
                     "options": {
-                        "temperature": 0.3,
-                        "top_p": 0.7,
-			"num_predict": 50,
-			"num_ctx": 1024
+                        "temperature": 0.7,
+                        "top_p": 0.
                     }
                 }
                 
