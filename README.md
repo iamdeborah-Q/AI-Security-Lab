@@ -1,6 +1,8 @@
 # SecureAI: Threat Model & Test Endpoints
 
-Welcome to the course repository! This contains all the interactive demonstrations and monitoring tools you'll use throughout the course.
+Comprehensive security assessment of a production-ready healthcare AI platform, focused on threat modeling, adversarial testing, secure AI architecture, and CI/CD security implementation.
+This repository contains hands-on AI security labs and practical security assessments designed to evaluate and secure modern LLM-powered healthcare applications and AI inference systems.
+The project simulates a real-world security engagement for HealthTech AI’s DiagnosticAssist platform — an enterprise healthcare AI solution that analyzes medical images, integrates with clinical systems, and provides AI-assisted diagnostic recommendations for hospitals serving over 500,000 patients annually.
 
 ## 🎯 What's Inside
 
