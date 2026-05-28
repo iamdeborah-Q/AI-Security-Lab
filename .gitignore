@@ -80,3 +80,4 @@ ollama/
 
 # General Cache
 .cache/
+*.save
