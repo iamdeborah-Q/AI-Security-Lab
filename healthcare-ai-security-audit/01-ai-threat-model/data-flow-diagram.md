@@ -1,6 +1,9 @@
+# Healthcare AI Data Flow Diagram
+
+```mermaid
 ---
 config:
-  theme: base
+  theme: neo
 ---
 flowchart TD
     A[Clinician / Radiologist] --> B[Healthcare AI Web UI]
@@ -30,3 +33,4 @@ flowchart TD
     O --> P[Prometheus]
     O --> Q[Grafana]
     O --> R[Security Alerts]
+```
