@@ -1,0 +1,28 @@
+rules:
+  - id: unsafe-pickle-load
+    pattern-either:
+      - pattern: pickle.load(...)
+      - pattern: pickle.loads(...)
+    message: "Unsafe pickle deserialization detected. Pickle can execute arbitrary code."
+    languages: [python]
+    severity: ERROR
+
+  - id: unsafe-torch-load
+    patterns:
+      - pattern: torch.load(...)
+    message: "Unsafe torch.load() detected. Use weights_only=True."
+    languages: [python]
+    severity: WARNING
+
+  - id: hardcoded-api-key
+    pattern-regex: "(api[_-]?key|token|secret|password)\\s*=\\s*['\"][^'\"]+['\"]"
+    message: "Hardcoded credential detected."
+    languages: [python]
+    severity: ERROR
+
+  - id: missing-data-validation
+    patterns:
+      - pattern: pd.read_csv(...)
+    message: "CSV loaded without validation."
+    languages: [python]
+    severity: WARNING
