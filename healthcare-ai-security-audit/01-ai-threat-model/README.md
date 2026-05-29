@@ -10,9 +10,7 @@ DiagnosticAssist analyzes medical images (X-rays, CT scans, and MRIs) using AI m
 
 ## Architecture Artifacts
 
-* Architecture Diagram (`data-flow-diagram.svg`)
-* Data Flow Diagram (`data-flow-diagram.md`)
-* Mermaid Source (`data-flow-diagram.mmd`)
+* Architecture Diagram (`data-flow-diagram.mmd`)
 
 ## Sensitive Data (PHI)
 
