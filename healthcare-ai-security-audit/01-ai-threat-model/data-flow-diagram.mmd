@@ -1,0 +1,66 @@
+---
+config:
+  layout: elk
+---
+flowchart TD
+    Clinician[Clinician / Radiologist]
+    WebUI[Healthcare AI Web UI]
+    APIGateway[API Gateway]
+    AuthService[Authentication Service]
+    AppService[Application Processing Service]
+    EHRService[EHR Integration Service]
+    EHRSystem[Hospital EHR System]
+    ImagePipeline[Medical Image Processing Pipeline]
+    DiagModel[AI Diagnostic Model]
+    LLMInterface[LLM Interface]
+    LLMEndpoint[LLM Inference Endpoint]
+    DiagRec[Diagnostic Recommendation]
+    ClinicalResp[Clinical Response]
+    Database[(Encrypted Database)]
+    Audit[Audit Logging & Monitoring]
+    Prometheus[Prometheus]
+    Grafana[Grafana]
+    SecurityAlerts[Security Alerts]
+
+    Clinician --> WebUI
+    WebUI --> APIGateway
+    APIGateway --> AuthService
+    APIGateway --> AppService
+    AppService --> EHRService
+    EHRService --> EHRSystem
+    AppService --> ImagePipeline
+    ImagePipeline --> DiagModel
+    AppService --> LLMInterface
+    LLMInterface --> LLMEndpoint
+    DiagModel --> DiagRec
+    LLMEndpoint --> ClinicalResp
+    DiagRec --> AppService
+    ClinicalResp --> AppService
+    AppService --> Database
+    AppService --> Audit
+    Audit --> Prometheus
+    Audit --> Grafana
+    Audit --> SecurityAlerts
+
+    classDef userRole stroke:#818cf8,fill:#eef2ff
+    classDef interface stroke:#2dd4bf,fill:#f0fdfa
+    classDef security stroke:#f87171,fill:#fef2f2
+    classDef service stroke:#a78bfa,fill:#f5f3ff
+    classDef external stroke:#fb923c,fill:#fff7ed
+    classDef ml stroke:#4ade80,fill:#f0fdf4
+    classDef storage stroke:#facc15,fill:#fefce8
+    classDef monitoring stroke:#38bdf8,fill:#f0f9ff
+
+    class Clinician userRole
+    class WebUI interface
+    class APIGateway interface
+    class AuthService security
+    class AppService service
+    class EHRService service
+    class ImagePipeline ml
+    class DiagModel ml
+    class LLMInterface service
+    class DiagRec,ClinicalResp service
+    class EHRSystem,LLMEndpoint external
+    class Database storage
+    class Audit,Prometheus,Grafana,SecurityAlerts monitoring
