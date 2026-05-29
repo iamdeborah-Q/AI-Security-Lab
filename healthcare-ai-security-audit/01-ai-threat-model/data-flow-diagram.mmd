@@ -1,6 +1,7 @@
 ---
 config:
   layout: elk
+  theme: dark
 ---
 flowchart TD
     Clinician[Clinician / Radiologist]
@@ -22,45 +23,40 @@ flowchart TD
     Grafana[Grafana]
     SecurityAlerts[Security Alerts]
 
-    Clinician --> WebUI
-    WebUI --> APIGateway
-    APIGateway --> AuthService
-    APIGateway --> AppService
-    AppService --> EHRService
-    EHRService --> EHRSystem
-    AppService --> ImagePipeline
-    ImagePipeline --> DiagModel
-    AppService --> LLMInterface
-    LLMInterface --> LLMEndpoint
-    DiagModel --> DiagRec
-    LLMEndpoint --> ClinicalResp
-    DiagRec --> AppService
-    ClinicalResp --> AppService
-    AppService --> Database
-    AppService --> Audit
+    Clinician -->|credentials + DICOM| WebUI
+    WebUI -->|HTTPS| APIGateway
+    APIGateway -->|auth check| AuthService
+    APIGateway -->|request| AppService
+    AppService -->|HL7 patient lookup| EHRService
+    EHRService -->|HL7/FHIR| EHRSystem
+    AppService -->|image + patient ref| ImagePipeline
+    ImagePipeline -->|normalised tensor| DiagModel
+    AppService -->|NL query + PHI ctx| LLMInterface
+    LLMInterface -->|sanitised prompt| LLMEndpoint
+    DiagModel -->|prediction + confidence| DiagRec
+    LLMEndpoint -->|NL response| ClinicalResp
+    DiagRec -->|signed output| AppService
+    ClinicalResp -->|DLP filtered| AppService
+    AppService -->|PHI write| Database
+    AppService -->|access event| Audit
     Audit --> Prometheus
     Audit --> Grafana
-    Audit --> SecurityAlerts
+    Audit -->|alert| SecurityAlerts
 
-    classDef userRole stroke:#818cf8,fill:#eef2ff
-    classDef interface stroke:#2dd4bf,fill:#f0fdfa
-    classDef security stroke:#f87171,fill:#fef2f2
-    classDef service stroke:#a78bfa,fill:#f5f3ff
-    classDef external stroke:#fb923c,fill:#fff7ed
-    classDef ml stroke:#4ade80,fill:#f0fdf4
-    classDef storage stroke:#facc15,fill:#fefce8
-    classDef monitoring stroke:#38bdf8,fill:#f0f9ff
+    classDef userRole    stroke:#818cf8,fill:#1e1b4b,color:#c7d2fe
+    classDef interface   stroke:#2dd4bf,fill:#134e4a,color:#ccfbf1
+    classDef security    stroke:#f87171,fill:#450a0a,color:#fecaca
+    classDef service     stroke:#a78bfa,fill:#2e1065,color:#ede9fe
+    classDef external    stroke:#fb923c,fill:#431407,color:#fed7aa
+    classDef ml          stroke:#4ade80,fill:#052e16,color:#bbf7d0
+    classDef storage     stroke:#facc15,fill:#422006,color:#fef9c3
+    classDef monitoring  stroke:#38bdf8,fill:#082f49,color:#bae6fd
 
     class Clinician userRole
-    class WebUI interface
-    class APIGateway interface
+    class WebUI,APIGateway interface
     class AuthService security
-    class AppService service
-    class EHRService service
-    class ImagePipeline ml
-    class DiagModel ml
-    class LLMInterface service
-    class DiagRec,ClinicalResp service
+    class AppService,EHRService,LLMInterface,DiagRec,ClinicalResp service
     class EHRSystem,LLMEndpoint external
+    class ImagePipeline,DiagModel ml
     class Database storage
     class Audit,Prometheus,Grafana,SecurityAlerts monitoring
